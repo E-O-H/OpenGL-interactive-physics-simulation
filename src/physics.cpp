@@ -30,7 +30,8 @@ void physics(unsigned start_index, unsigned end_index) {
 
     // collision calculation
     for (unsigned i = start_index; i < end_index; ++i) {
-        for (unsigned j = i + 1; j < end_index; ++j) {
+        for (unsigned j = start_index; j < end_index; ++j) {
+            if (j == i) continue;
             Vector3d distance = pos[j] - pos[i];
             Vector3d direction = distance.normalized();
             double vi = (pos[i] - pos_last[i]).dot(direction);
@@ -39,16 +40,14 @@ void physics(unsigned start_index, unsigned end_index) {
                 && distance.squaredNorm() < square(objects[i].collision_radius + objects[j].collision_radius)) {
                 double vi_n = (vi * (objects[i].mass - objects[j].mass) + vj * (2 * objects[j].mass)) 
                                 / (objects[i].mass + objects[j].mass);
-                double vj_n = (vj * (objects[j].mass - objects[i].mass) + vi * (2 * objects[i].mass)) 
-                    / (objects[i].mass + objects[j].mass);
                 // calculate collision change of state
                 temp_pos[i] = pos_last[i];
                 temp_pos_last[i] = pos_last[i] + direction * (vi - vi_n)
                                     + (pos_last[i] - pos[i]); 
-                temp_pos[j] = pos_last[j];
-                temp_pos_last[j] = pos_last[j] + direction * (vj - vj_n)
-                                    + (pos_last[j] - pos[j]);
-                break;
+                // break; // Adding this break will limit every object to only collide with one other
+                          // object at the same time (in the same frame); this will greatly improve
+                          // performance when there are a LOT of objects in the simulation, at the cost
+                          // of missing collisions.
             }
         }
 
