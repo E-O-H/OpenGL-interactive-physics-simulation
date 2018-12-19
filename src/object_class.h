@@ -77,9 +77,7 @@ public:
     double collision_radius = 1.0;
     double density = 10.0;          // For calculating mass
     double mass;                   // Derived from density and collision_radius
-    bool COLLISION = false; // To check if the object is already in a collision (so it is not deemed as a new collision)
-                            // Note since there is only one collision flag, 
-                            // collision with multiple objects at the same time is not supported
+    // bool COLLISION = false; // NOT NEEDED IN THE NEW VERSION
 
     void updateMass();
 };
