@@ -19,8 +19,8 @@ Key bindings
 “left-alt”: descend
 “=“ or “numpad+“: increase moving speed
 “-” or “numpad-”: decrease moving speed
-“left-mouse-button”: shoot a new object
-“mouse-wheel-scroll”: change the shooting speed (speed change is linear in low speed, and exponential in high speed).
+“left-mouse-button”: shoot a new object into the scene
+“mouse-wheel-scroll”: change the shooting speed (speed change is linear at low speed, and exponential at high speed).
 “middle-mouse-button”: stop the randomized rotation; also reset launch speed to zero
 “r”: make object in hand (or selected object) larger. This will increase the mass while preserving the density.
 “f”: make object in hand (or selected object) smaller. This will decrease the mass while preserving the density.
