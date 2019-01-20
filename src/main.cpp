@@ -296,9 +296,20 @@ void cursor_pos_callback(GLFWwindow* window, double xpos, double ypos) {
 
     float yaw, pitch;
     yaw = xpos / double(width) * PI * MOUSE_SENSITIVITY;
+    /* Old implementation (jumps between the zenith and the nadir)
     pitch = (positiveMod(int(height - 1 - ypos), height) / double(height) - 0.5) 
             * PI * MOUSE_SENSITIVITY;                // Restrain Radian value within (-PI/2, PI/2)
                                                      // also note y axis is flipped in glfw
+    */
+    static float ypos_prev = ypos;
+    float delta = ypos - ypos_prev;
+    ypos_prev = ypos;
+    static float ypos_restricted = 0.0;
+    if (delta > 0 && ypos_restricted + delta < height / 2.0
+        || delta < 0 && ypos_restricted + delta > - height / 2.0) {
+        ypos_restricted += delta;
+    }
+    pitch = - ypos_restricted / height * PI * MOUSE_SENSITIVITY;
     camera.look(yaw, pitch);
 }
 
