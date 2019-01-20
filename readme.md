@@ -11,6 +11,7 @@ The program should be pretty stable, but if you ever encounter a case where you 
 Key bindings
 “&ltesc&gt”: exit program
 “`”: Delete all objects in the simulation and reset the scene
+number keys: add premade demo examples to the scene
 “w”: move forward
 “s”: move backward
 “a”: strafe left
@@ -30,11 +31,11 @@ Key bindings
 “&ltF2&gt”: change the object in hand (or the currently selected object in scene) to flat mode
 “&ltF3&gt”: change the object in hand (or the currently selected object in scene) to smooth mode
 “&ltF4&gt”: change the object in hand (or the currently selected object in scene) to normal-vector display mode
-“1”: change the current object in hand to a unit cube
-“2”: change the current object in hand to a bumpy cube
-“3”: change the current object in hand to a bunny
-“4”: change the current object in hand to the earth (default and recommended model)
-“5”: change the current object in hand to a fancy skeletal sphere (note this object is actually much larger than it seems and is very massive by default despite the skeletal look; it is intended to function as a “star core”; putting other objects close to it is not recommended)
+“&ltF5&gt”: change the current object in hand to a unit cube
+“&ltF6&gt”: change the current object in hand to a bumpy cube
+“&ltF7&gt”: change the current object in hand to a bunny
+“&ltF8&gt”: change the current object in hand to the earth (default and recommended model)
+“&ltF9&gt”: change the current object in hand to a fancy skeletal sphere (note this object is actually much larger than it seems and is very massive by default despite the skeletal look; it is intended to function as a “star core”; putting other objects close to it is not recommended)
 “e”: enter select mode and select next object (cycle); used for editing objects in the scene
 “q”: enter select mode and select previous object (cycle)
 “backspace” or “z”: cancel selection (editing mode changes back to the object in “hand”)
