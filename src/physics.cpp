@@ -41,8 +41,8 @@ void physics(unsigned start_index, unsigned end_index) {
                 double vi_n = (vi * (objects[i].mass - objects[j].mass) + vj * (2 * objects[j].mass)) 
                                 / (objects[i].mass + objects[j].mass);
                 // calculate collision change of state
-                temp_pos[i] = pos_last[i];
-                temp_pos_last[i] = pos_last[i] + direction * (vi - vi_n)
+                temp_pos[i] = vi_n * vi > 0 ? pos[i] : pos_last[i];
+                temp_pos_last[i] = temp_pos[i] + direction * (vi - vi_n)
                                     + (pos_last[i] - pos[i]); 
                 // break; // Adding this break will limit every object to only collide with one other
                           // object at the same time (in the same frame); this will greatly improve
