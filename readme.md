@@ -16,7 +16,7 @@ The program should be pretty stable, but if you ever encounter a case where you 
 Key bindings
 “&ltesc&gt”: exit program
 “`”: Delete all objects in the simulation and reset the scene
-number keys: add premade demo examples to the scene
+Number-keys (“0” ~ “9”): add an example (a pre-made objects formation) to the scene
 “w”: move forward
 “s”: move backward
 “a”: strafe left
