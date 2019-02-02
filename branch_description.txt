@@ -1,0 +1,6 @@
+On this Branch:
+- Collision algorithm is:
+- - based on relative-speed
+    (instead of flag-based)
+- - processing one object at a time, storing new position and speed as temp
+    (instead of pair-wise processing, without storing new position and speed as temp)
