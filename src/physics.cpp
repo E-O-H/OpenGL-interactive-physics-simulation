@@ -1,6 +1,5 @@
 #include "common_header.h"
 #include "object_class.h"
-#include <iostream>
 
 double G_para = 5.0; // Gravity parameter
 double dt = 0.01;    // Time step
@@ -28,26 +27,37 @@ void physics(unsigned start_index, unsigned end_index) {
                                          // in order to preserve the total energy (kinetic + potential energy)
     }
 
-    // collision calculation
+    // physics calculation
     for (unsigned i = start_index; i < end_index; ++i) {
-        for (unsigned j = start_index; j < end_index; ++j) {
-            if (j == i) continue;
-            Vector3d distance = pos[j] - pos[i];
-            Vector3d direction = distance.normalized();
-            double vi = (pos[i] - pos_last[i]).dot(direction);
-            double vj = (pos[j] - pos_last[j]).dot(direction);
-            if (vi - vj > 0
-                && distance.squaredNorm() < square(objects[i].collision_radius + objects[j].collision_radius)) {
-                double vi_n = (vi * (objects[i].mass - objects[j].mass) + vj * (2 * objects[j].mass)) 
-                                / (objects[i].mass + objects[j].mass);
-                // calculate collision change of state
-                temp_pos[i] = vi_n * vi > 0 ? pos[i] : pos_last[i];
-                temp_pos_last[i] = temp_pos[i] + direction * (vi - vi_n)
-                                    + (pos_last[i] - pos[i]); 
-                // break; // Adding this break will limit every object to only collide with one other
-                          // object at the same time (in the same frame); this will greatly improve
-                          // performance when there are a LOT of objects in the simulation, at the cost
-                          // of missing collisions.
+        if(objects[i].COLLISION == true) {
+            // If the object is already in a collision, check if it has completed the collision
+            objects[i].COLLISION = false;
+            for (unsigned j = start_index; j < end_index; ++j) {
+                if (j == i) continue;
+                Vector3d distance = pos[j] - pos[i];
+                if (distance.squaredNorm() < square(objects[i].collision_radius + objects[j].collision_radius)) {
+                    objects[i].COLLISION = true;
+                    break;
+                }
+            }
+        } else {
+            // If the object is not in a collision, check for new collisions
+            for (unsigned j = start_index; j < end_index; ++j) {
+                if (j == i) continue;
+                Vector3d distance = pos[j] - pos[i];
+                if (distance.squaredNorm() < square(objects[i].collision_radius + objects[j].collision_radius)) {
+                    objects[i].COLLISION = true;
+                    distance.normalize();
+                    double vi = (pos[i] - pos_last[i]).dot(distance);
+                    double vj = (pos[j] - pos_last[j]).dot(distance);
+                    double vi_n = (vi * (objects[i].mass - objects[j].mass) + vj * (2 * objects[j].mass)) 
+                                  / (objects[i].mass + objects[j].mass);
+                    // calculate collision change of state
+                    temp_pos[i] = pos_last[i];
+                    temp_pos_last[i] = pos_last[i] + distance * (vi - vi_n)
+                                       + (pos_last[i] - pos[i]); 
+                    break;
+                }
             }
         }
 
