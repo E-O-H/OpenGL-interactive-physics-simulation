@@ -47,3 +47,14 @@ number keys: add premade demo examples to the scene
 “h”, “j”, “k”, “l”, “u”, “I”: translate selected object in world space
 “n”, “m”, “,”, “.”, “;”, “/”: rotate selected object in world space
 </pre>
+
+Pre-made scene files are text files in "data/examples". You can edit files 0~9 and press number keys during simulation to add your custom pre-made objects formation to the scene.
+
+Format of pre-made scene files:
+```
+First line: number of objects
+radius  x_position  y_position  z_poxition  x_initial_speed  y_initial_speed  z_initial_speed  color_r  color_g  color_b  density  is_light_source
+```
+
+color_r, color_g, color_b and is_light_source are currently not used (but you should still put a number).
+
